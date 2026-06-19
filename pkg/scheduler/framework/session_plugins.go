@@ -353,7 +353,7 @@ func (ssn *Session) SubsetNodesFn(
 	nodeSets := []node_info.NodeSet{initNodeSet}
 	for _, subsetNodesFn := range ssn.SubsetNodesFns {
 		log.InfraLogger.V(7).Infof(
-			"Running plugin func <%v> on podGroup <%s/%s>", subsetNodesFn, podGroup.Namespace, podGroup.Namespace)
+			"Running plugin func <%v> on podGroup <%s/%s>", subsetNodesFn, podGroup.Namespace, podGroup.Name)
 		var newNodeSets []node_info.NodeSet
 		for _, nodeSet := range nodeSets {
 			nodeSubsets, err := subsetNodesFn(podGroup, subGroupInfo, podSets, tasks, nodeSet)
@@ -379,7 +379,7 @@ func logNodeSetsPluginResult(subsetNodesFn api.SubsetNodesFn, podGroup *podgroup
 		nodeSetsByNames = append(nodeSetsByNames, nodeSet)
 	}
 	log.InfraLogger.V(7).Infof(
-		"Result of plugin func <%v> on podGroup <%s/%s> is %v", subsetNodesFn, podGroup.Namespace, podGroup.Namespace, nodeSetsByNames)
+		"Result of plugin func <%v> on podGroup <%s/%s> is %v", subsetNodesFn, podGroup.Namespace, podGroup.Name, nodeSetsByNames)
 }
 
 func (ssn *Session) PrePredicateFn(task *pod_info.PodInfo, job *podgroup_info.PodGroupInfo) error {
